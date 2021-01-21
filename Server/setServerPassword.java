@@ -37,5 +37,8 @@ class setServerPassword extends JFrame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(300, 100);
 		frame.setVisible(true);
+
+		Runnable server_socket = new createServerSocket(frame, password_value);
+		new Thread(server_socket).start();
 	}
 }
