@@ -30,6 +30,10 @@ public class createServerSocket implements Runnable{
 				String received_password = socket_input.readUTF();
 				if (received_password.equals(server_password)) {
 					socket_output.writeUTF("Password verified.");
+					connected_frame = new connectedWithClient(sc);
+					connected_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					connected_frame.setSize(600, 100);
+					connected_frame.setVisible(true);
 					waiting_frame.dispose();
 				} else {
 					socket_output.writeUTF("Invalid password.");
