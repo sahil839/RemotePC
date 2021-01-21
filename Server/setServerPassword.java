@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-class setServerPassword extends JFrame {
+class setServerPassword extends JFrame implements ActionListener {
 	JTextField password_input;
 	JPanel password_panel;
 	JLabel password_label;
@@ -23,5 +24,18 @@ class setServerPassword extends JFrame {
 
 		add(password_panel, BorderLayout.CENTER);
 		setTitle("Set password");
+
+		submit_btn.addActionListener(this);
+		setLocationRelativeTo(null);
+	}
+
+	public void actionPerformed(ActionEvent ae){
+		String password_value=password_input.getText();
+		dispose();
+
+		setupServerConnection frame = new prepareServerConnection();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(300, 100);
+		frame.setVisible(true);
 	}
 }
