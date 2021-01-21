@@ -33,7 +33,7 @@ class setServerPassword extends JFrame implements ActionListener {
 		String password_value=password_input.getText();
 		dispose();
 
-		setupServerConnection frame = new prepareServerConnection();
+		prepareServerConnection frame = new prepareServerConnection();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(300, 100);
 		frame.setVisible(true);
