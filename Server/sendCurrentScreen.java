@@ -3,12 +3,16 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.OutputStream;
 import java.awt.Dimension;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
+import java.awt.MouseInfo;
+import java.awt.Graphics2D;
 
 public class sendCurrentScreen {
 	Socket connected_socket;
@@ -27,6 +31,11 @@ public class sendCurrentScreen {
 			Rectangle rect = new Rectangle(dim);
 			BufferedImage screenImage = robot.createScreenCapture(rect);
 			ByteArrayOutputStream byte_array_op_stream = new ByteArrayOutputStream();
+			Image cursor = ImageIO.read(new File("assets/cursor.png"));
+			int x = MouseInfo.getPointerInfo().getLocation().x;
+			int y = MouseInfo.getPointerInfo().getLocation().y;
+			Graphics2D graphics2D = screenImage.createGraphics();
+			graphics2D.drawImage(cursor, x, y, 16, 16, null);
             ImageIO.write(screenImage, "png", byte_array_op_stream);
             byte_array_ip_stream = new ByteArrayInputStream(byte_array_op_stream.toByteArray());
             int fileSize = byte_array_op_stream.size();
