@@ -38,6 +38,7 @@ public class createServerSocket implements Runnable{
 					new receiveEvents(sc);
 				} else {
 					socket_output.writeUTF("Invalid password.");
+					sc.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
