@@ -39,13 +39,11 @@ public class MakeConnection implements Runnable{
             sendPassword.writeUTF(password);
             String verificationMessage = passwordVerification.readUTF();
             Log.d("myTag", verificationMessage);
-            String alert_text;
             if (verificationMessage.equals("Password verified.")) {
-                alert_text = "Connected";
                 Intent intent = new Intent(connectContext, RemoteScreen.class);
                 connectContext.startActivity(intent);
             } else {
-                alert_text = "Connection Faciled";
+                client_socket.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
