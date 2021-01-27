@@ -38,7 +38,6 @@ public class MakeConnection implements Runnable{
             passwordVerification = new DataInputStream(client_socket.getInputStream());
             sendPassword.writeUTF(password);
             String verificationMessage = passwordVerification.readUTF();
-            Log.d("myTag", verificationMessage);
             if (verificationMessage.equals("Password verified.")) {
                 Intent intent = new Intent(connectContext, RemoteScreen.class);
                 connectContext.startActivity(intent);
