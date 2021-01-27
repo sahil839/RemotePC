@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -24,6 +25,8 @@ public class MakeConnection implements Runnable{
     DataInputStream passwordVerification;
     DataOutputStream sendPassword;
     public static ObjectOutputStream objectOutputStream;
+    public static ObjectInputStream objectInputStream;
+    public static SendToServer sendToServer;
     Context connectContext;
     MakeConnection( String ip, String pass, Context context) {
         ipAddress = ip;
