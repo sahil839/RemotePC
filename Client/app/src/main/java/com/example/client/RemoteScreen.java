@@ -15,9 +15,6 @@ public class RemoteScreen extends AppCompatActivity {
         setContentView(R.layout.screen_remote);
         screenView = (ImageView) findViewById(R.id.screenImageView);
         Socket socket = MakeConnection.client_socket;
-        MakeConnection.sendToServer = new SendToServer("SEND_SCREEN");
-        Runnable r = new UpdateScreen(RemoteScreen.this);
-        Thread updateScreenThread = new Thread(r);
-        updateScreenThread.start();
+        new UpdateScreen(RemoteScreen.this);
     }
 }
