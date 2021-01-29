@@ -38,7 +38,8 @@ public class UpdateScreen {
                         fos.write(buffer, 0, read);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RemoteScreen.updateScreenTimer.cancel();
+                    RemoteScreen.updateScreenTimer.purge();
                 }
                 screen_activity.runOnUiThread(() -> {
                     Bitmap bitmap;
