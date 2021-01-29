@@ -19,15 +19,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         connectButton = findViewById(R.id.connect_button);
         connectContext = this.getApplicationContext();
-        connectButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ipAddressEditText = (EditText)findViewById(R.id.ipAddressText);
-                passwordText = findViewById(R.id.passwordText);
-                String ipAddress = ipAddressEditText.getText().toString();
-                String password = passwordText.getText().toString();
-                Runnable r = new MakeConnection(ipAddress, password, connectContext);
-                new Thread(r).start();
-            }
+        connectButton.setOnClickListener((View.OnClickListener) v -> {
+            ipAddressEditText = (EditText) findViewById(R.id.ipAddressText);
+            passwordText = findViewById(R.id.passwordText);
+            String ipAddress = ipAddressEditText.getText().toString();
+            String password = passwordText.getText().toString();
+            Runnable r = new MakeConnection(ipAddress, password, connectContext);
+            new Thread(r).start();
         });
 
     }
