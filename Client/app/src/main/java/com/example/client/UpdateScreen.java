@@ -18,7 +18,7 @@ public class UpdateScreen {
     long period = 1000;
     UpdateScreen(Activity activity) {
         screen_activity = activity;
-        Timer updateScreenTimer = new Timer();
+        RemoteScreen.updateScreenTimer = new Timer();
         TimerTask updateScreenTask = new TimerTask() {
             @Override
             public void run() {
@@ -57,6 +57,6 @@ public class UpdateScreen {
                 });
             }
         };
-        updateScreenTimer.scheduleAtFixedRate(updateScreenTask, delay, period);
+        RemoteScreen.updateScreenTimer.scheduleAtFixedRate(updateScreenTask, delay, period);
     }
 }
