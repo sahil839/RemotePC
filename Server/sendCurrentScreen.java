@@ -50,7 +50,6 @@ public class sendCurrentScreen {
             while ((read = byte_array_ip_stream.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
                 totalRead += read;
                 remaining -= read;
-                System.out.println("Transfer Progress: " + ((totalRead * 100) / fileSize));
                 socket_object_output.write(buffer, 0, read);
                 socket_object_output.flush();
             }
