@@ -12,17 +12,20 @@ public class createServerSocket implements Runnable{
 	int port = 8000;
 	JFrame waiting_frame;
 	JFrame connected_frame;
+	private volatile Boolean wait_for_client;
 	createServerSocket(JFrame frame, String password) {
 		waiting_frame = frame;
 		server_password = password;
+		wait_for_client = true;
 	}
 	public void run() {
 		try {
 			socket = new ServerSocket(port);
 		} catch (Exception e) {
+			wait_for_client = false;
 			e.printStackTrace();
 		}
-		while(true) {
+		while(wait_for_client) {
 			try {
 				Socket sc = socket.accept();
 				socket_input = new DataInputStream(sc.getInputStream());
