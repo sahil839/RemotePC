@@ -29,10 +29,6 @@ public class UpdateScreen {
                 try {
                     MakeConnection.objectInputStream = new ObjectInputStream(MakeConnection.client_socket.getInputStream());
                     fos = screen_activity.openFileOutput(filename, Context.MODE_PRIVATE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
                     byte buffer[] = new byte[4096];
                     int fileSize = (int) MakeConnection.objectInputStream.readObject();
                     int read = 0;
