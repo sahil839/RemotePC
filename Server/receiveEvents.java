@@ -5,15 +5,20 @@ class receiveEvents extends Thread{
 	String event_key;
 	Socket connected_socket, screen_socket;
 	private volatile Boolean receive_events;
+	ObjectInputStream ip_stream;
 	receiveEvents(Socket sc, Socket screen_sc) {
 		connected_socket = sc;
 		screen_socket = screen_sc;
 		receive_events = true;
+		try {
+			ip_stream = new ObjectInputStream(connected_socket.getInputStream());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		start();
 	}
 	public void run() {
 		try {
-			ObjectInputStream ip_stream = new ObjectInputStream(connected_socket.getInputStream());
 			while(receive_events) {
 				event_key = (String)ip_stream.readObject();
 				switch (event_key) {
