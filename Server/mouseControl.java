@@ -18,4 +18,7 @@ public class mouseControl {
     public static void mouseMove(int x, int y) {
         robot.mouseMove(x, y);
     }
+    public static void mouseWheel(int wheelAmt) {
+        robot.mouseWheel(wheelAmt);
+    }
 }
