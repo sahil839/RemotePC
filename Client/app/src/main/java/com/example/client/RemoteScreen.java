@@ -89,7 +89,6 @@ public class RemoteScreen extends AppCompatActivity {
         try {
             updateScreenTimer.cancel();
             updateScreenTimer.purge();
-            MakeConnection.objectOutputStream = null;
             sendToServer.message_queue.add("CLOSE_CONNECTION");
             MakeConnection.client_socket.close();
             MakeConnection.screen_socket.close();
