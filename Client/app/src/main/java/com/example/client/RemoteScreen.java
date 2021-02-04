@@ -10,12 +10,15 @@ import java.util.Timer;
 public class RemoteScreen extends AppCompatActivity {
     public static ImageView screenView;
     public static Timer updateScreenTimer;
+    SendToServer sendToServer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_remote);
         screenView = (ImageView) findViewById(R.id.screenImageView);
         new UpdateScreen(RemoteScreen.this);
+        sendToServer = new SendToServer();
     }
 
     @Override
@@ -25,7 +28,7 @@ public class RemoteScreen extends AppCompatActivity {
             updateScreenTimer.cancel();
             updateScreenTimer.purge();
             MakeConnection.objectOutputStream = null;
-            new SendToServer("CLOSE_CONNECTION");
+            sendToServer.message_queue.add("CLOSE_CONNECTION");
             MakeConnection.client_socket.close();
             finish();
         } catch (Exception e) {
