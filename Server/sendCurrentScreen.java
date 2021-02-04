@@ -17,7 +17,6 @@ import java.awt.Graphics2D;
 public class sendCurrentScreen {
 	Socket connected_socket;
 	OutputStream socket_output;
-	ObjectOutputStream socket_object_output;
 	ByteArrayOutputStream byte_array_op_stream;
 	ByteArrayInputStream byte_array_ip_stream;
 	sendCurrentScreen(Socket sc) {
@@ -39,9 +38,8 @@ public class sendCurrentScreen {
             ImageIO.write(screenImage, "png", byte_array_op_stream);
             byte_array_ip_stream = new ByteArrayInputStream(byte_array_op_stream.toByteArray());
             int fileSize = byte_array_op_stream.size();
-            socket_object_output = new ObjectOutputStream(connected_socket.getOutputStream());
-            socket_object_output.writeObject(fileSize);
-            socket_object_output.flush();
+            receiveScreenEvent.op_stream.writeObject(fileSize);
+            receiveScreenEvent.op_stream.flush();
 
             byte[] buffer = new byte[4096];
             int read = 0;
@@ -50,10 +48,10 @@ public class sendCurrentScreen {
             while ((read = byte_array_ip_stream.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
                 totalRead += read;
                 remaining -= read;
-                socket_object_output.write(buffer, 0, read);
-                socket_object_output.flush();
+                receiveScreenEvent.op_stream.write(buffer, 0, read);
+                receiveScreenEvent.op_stream.flush();
             }
-            socket_object_output.flush();
+            receiveScreenEvent.op_stream.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

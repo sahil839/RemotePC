@@ -41,7 +41,8 @@ public class createServerSocket implements Runnable{
 					connected_frame.setSize(600, 100);
 					connected_frame.setVisible(true);
 					waiting_frame.dispose();
-					new receiveEvents(sc);
+					new receiveScreenEvent(screen_sc);
+					new receiveEvents(sc, screen_sc);
 				} else {
 					socket_output.writeUTF("Invalid password.");
 					sc.close();

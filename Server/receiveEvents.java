@@ -3,10 +3,11 @@ import java.io.*;
 
 class receiveEvents extends Thread{
 	String event_key;
-	Socket connected_socket;
+	Socket connected_socket, screen_socket;
 	private volatile Boolean receive_events;
-	receiveEvents(Socket sc) {
+	receiveEvents(Socket sc, Socket screen_sc) {
 		connected_socket = sc;
+		screen_socket = screen_sc;
 		receive_events = true;
 		start();
 	}
@@ -16,18 +17,20 @@ class receiveEvents extends Thread{
 			while(receive_events) {
 				event_key = (String)ip_stream.readObject();
 				switch (event_key) {
-					case "SEND_SCREEN":
-						new sendCurrentScreen(connected_socket);
-						break;
 					case "CLOSE_CONNECTION":
 						receive_events = false;
-						connected_socket.close();
 						break;
 				}
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				connected_socket.close();
+				screen_socket.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
