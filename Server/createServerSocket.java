@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class createServerSocket implements Runnable{
-	ServerSocket socket = null;
+	ServerSocket socket = null, screen_socket = null;
 	DataInputStream socket_input;
 	DataOutputStream socket_output;
 	String server_password;
-	int port = 8000;
+	int port = 8000, screen_port = 8001;
 	JFrame waiting_frame;
 	JFrame connected_frame;
 	private volatile Boolean wait_for_client;
@@ -21,6 +21,7 @@ public class createServerSocket implements Runnable{
 	public void run() {
 		try {
 			socket = new ServerSocket(port);
+			screen_socket = new ServerSocket(screen_port);
 		} catch (Exception e) {
 			wait_for_client = false;
 			e.printStackTrace();
@@ -28,8 +29,10 @@ public class createServerSocket implements Runnable{
 		while(wait_for_client) {
 			try {
 				Socket sc = socket.accept();
-				socket_input = new DataInputStream(sc.getInputStream());
+				Socket screen_sc = screen_socket.accept();
+
 				socket_output = new DataOutputStream(sc.getOutputStream());
+				socket_input = new DataInputStream(sc.getInputStream());
 				String received_password = socket_input.readUTF();
 				if (received_password.equals(server_password)) {
 					socket_output.writeUTF("Password verified.");
@@ -42,6 +45,7 @@ public class createServerSocket implements Runnable{
 				} else {
 					socket_output.writeUTF("Invalid password.");
 					sc.close();
+					screen_sc.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

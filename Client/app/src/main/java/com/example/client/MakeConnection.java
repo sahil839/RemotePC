@@ -13,13 +13,12 @@ import java.net.Socket;
 public class MakeConnection implements Runnable{
     String ipAddress;
     String password;
-    InetSocketAddress client_socket_addr;
-    public static Socket client_socket;
+    InetSocketAddress client_socket_addr, screen_socket_addr;
+    public static Socket client_socket, screen_socket;
     DataInputStream passwordVerification;
     DataOutputStream sendPassword;
-    public static ObjectOutputStream objectOutputStream;
-    public static ObjectInputStream objectInputStream;
-    public static SendToServer sendToServer;
+    public static ObjectOutputStream objectOutputStream, screenOutputStream;
+    public static ObjectInputStream objectInputStream, screenInputStream;
     Context connectContext;
     MakeConnection( String ip, String pass, Context context) {
         ipAddress = ip;
@@ -27,20 +26,32 @@ public class MakeConnection implements Runnable{
         connectContext = context;
     }
     public void run() {
-        int port = 8000;
+        int port = 8000, screen_port = 8001;
         try {
             client_socket_addr = new InetSocketAddress(ipAddress, port);
             client_socket = new Socket();
             client_socket.connect(client_socket_addr, 3000);
+
+            screen_socket_addr = new InetSocketAddress(ipAddress, screen_port);
+            screen_socket = new Socket();
+            screen_socket.connect(screen_socket_addr, 3000);
+
             sendPassword = new DataOutputStream(client_socket.getOutputStream());
             passwordVerification = new DataInputStream(client_socket.getInputStream());
             sendPassword.writeUTF(password);
             String verificationMessage = passwordVerification.readUTF();
             if (verificationMessage.equals("Password verified.")) {
+                MakeConnection.screenOutputStream = new ObjectOutputStream(MakeConnection.screen_socket.getOutputStream());
+                MakeConnection.screenInputStream = new ObjectInputStream(MakeConnection.screen_socket.getInputStream());
+
+                MakeConnection.objectOutputStream = new ObjectOutputStream(MakeConnection.client_socket.getOutputStream());
+                MakeConnection.objectInputStream = new ObjectInputStream(MakeConnection.client_socket.getInputStream());
+
                 Intent intent = new Intent(connectContext, RemoteScreen.class);
                 connectContext.startActivity(intent);
             } else {
                 client_socket.close();
+                screen_socket.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
