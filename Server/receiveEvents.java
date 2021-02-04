@@ -1,15 +1,23 @@
 import java.net.Socket;
 import java.io.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 class receiveEvents extends Thread{
 	String event_key;
 	Socket connected_socket, screen_socket;
 	private volatile Boolean receive_events;
 	ObjectInputStream ip_stream;
+	int screenWidth, screenHeight;
+	mouseControl mouse_control;
 	receiveEvents(Socket sc, Socket screen_sc) {
 		connected_socket = sc;
 		screen_socket = screen_sc;
 		receive_events = true;
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = (int) screenSize.getWidth();
+        screenHeight = (int) screenSize.getHeight();
+        mouse_control = new mouseControl();
 		try {
 			ip_stream = new ObjectInputStream(connected_socket.getInputStream());
 		} catch (Exception e) {
@@ -25,6 +33,18 @@ class receiveEvents extends Thread{
 					case "CLOSE_CONNECTION":
 						receive_events = false;
 						break;
+					case "MOUSE_MOVE_LIVE":
+                        String xCord = (String) ip_stream.readObject();
+                        String yCord = (String) ip_stream.readObject();
+                        float finalXCord = Float.parseFloat(xCord);
+                        float finalYCord = Float.parseFloat(yCord);
+                        finalXCord = finalXCord * screenWidth;
+                        finalYCord = finalYCord * screenHeight;
+                        mouseControl.mouseMove((int) finalXCord, (int) finalYCord);
+                        break;
+                    case "LEFT_CLICK":
+                        mouseControl.leftClick();
+                        break;
 				}
 			}
 		} catch (Exception e) {
