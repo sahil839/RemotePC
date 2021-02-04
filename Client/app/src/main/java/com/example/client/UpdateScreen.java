@@ -22,18 +22,16 @@ public class UpdateScreen {
         TimerTask updateScreenTask = new TimerTask() {
             @Override
             public void run() {
-                MakeConnection.sendToServer = new SendToServer("SEND_SCREEN");
-
                 FileOutputStream fos = null;
                 String filename = "screen.png";
                 try {
-                    MakeConnection.objectInputStream = new ObjectInputStream(MakeConnection.client_socket.getInputStream());
+                    MakeConnection.screenOutputStream.writeObject("SEND_SCREEN");
                     fos = screen_activity.openFileOutput(filename, Context.MODE_PRIVATE);
                     byte buffer[] = new byte[4096];
-                    int fileSize = (int) MakeConnection.objectInputStream.readObject();
+                    int fileSize = (int) MakeConnection.screenInputStream.readObject();
                     int read = 0;
                     int remaining = fileSize;
-                    while ((read = MakeConnection.objectInputStream.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
+                    while ((read = MakeConnection.screenInputStream.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
                         remaining -= read;
                         fos.write(buffer, 0, read);
                     }
