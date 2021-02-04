@@ -18,7 +18,7 @@ public class MakeConnection implements Runnable{
     DataInputStream passwordVerification;
     DataOutputStream sendPassword;
     public static ObjectOutputStream objectOutputStream, screenOutputStream;
-    public static ObjectInputStream objectInputStream, screenInputStream;
+    public static ObjectInputStream screenInputStream;
     Context connectContext;
     MakeConnection( String ip, String pass, Context context) {
         ipAddress = ip;
@@ -45,7 +45,6 @@ public class MakeConnection implements Runnable{
                 MakeConnection.screenInputStream = new ObjectInputStream(MakeConnection.screen_socket.getInputStream());
 
                 MakeConnection.objectOutputStream = new ObjectOutputStream(MakeConnection.client_socket.getOutputStream());
-                MakeConnection.objectInputStream = new ObjectInputStream(MakeConnection.client_socket.getInputStream());
 
                 Intent intent = new Intent(connectContext, RemoteScreen.class);
                 connectContext.startActivity(intent);
