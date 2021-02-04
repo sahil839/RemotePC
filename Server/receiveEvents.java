@@ -45,6 +45,10 @@ class receiveEvents extends Thread{
                     case "LEFT_CLICK":
                         mouseControl.leftClick();
                         break;
+                    case "MOUSE_WHEEL":
+						int scrollAmt = Integer.parseInt((String)ip_stream.readObject());
+                        mouseControl.mouseWheel(scrollAmt);
+                        break;
 				}
 			}
 		} catch (Exception e) {

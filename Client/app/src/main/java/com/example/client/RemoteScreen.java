@@ -14,7 +14,7 @@ public class RemoteScreen extends AppCompatActivity {
     public static Timer updateScreenTimer;
     SendToServer sendToServer;
     private int screenViewX, screenViewY;
-    private int xCord, yCord, initX, initY;
+    private int xCord, yCord, initX, initY, distY;
     boolean mouseMoved = false, multiTouch = false;
     long currentPressTime, lastPressTime;
     Float finalXCord, finalYCord;
@@ -66,6 +66,14 @@ public class RemoteScreen extends AppCompatActivity {
                                 sendToServer.message_queue.add(Float.toString(finalYCord));
                                 mouseMoved=true;
                             }
+                        } else {
+                            distY = (int) (initY - event.getY());
+                            distY = (int) distY/4;
+                            if(distY != 0) {
+                                sendToServer.message_queue.add("MOUSE_WHEEL");
+                                sendToServer.message_queue.add(Integer.toString(distY));
+                                mouseMoved=true;
+                            }
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -76,6 +84,17 @@ public class RemoteScreen extends AppCompatActivity {
                             sendToServer.message_queue.add("LEFT_CLICK");
                         }
                         lastPressTime = currentPressTime;
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        initY = (int) event.getY();
+                        mouseMoved = false;
+                        multiTouch = true;
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        if(!mouseMoved) {
+                            sendToServer.message_queue.add("LEFT_CLICK");
+                        }
+                        multiTouch = false;
                         break;
                 }
             }
