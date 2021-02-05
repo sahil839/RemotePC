@@ -1,5 +1,7 @@
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 public class mouseControl {
 	static Robot robot;
