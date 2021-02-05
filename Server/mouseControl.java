@@ -86,8 +86,54 @@ public class mouseControl {
 		case'x': doType(VK_X); break;
 		case'y': doType(VK_Y); break;
 		case'z': doType(VK_Z); break;
-            default:
-                // Throw it error
+		case '`': doType(VK_BACK_QUOTE); break;
+		case '0': doType(VK_0); break;
+		case '1': doType(VK_1); break;
+		case '2': doType(VK_2); break;
+		case '3': doType(VK_3); break;
+		case '4': doType(VK_4); break;
+		case '5': doType(VK_5); break;
+		case '6': doType(VK_6); break;
+		case '7': doType(VK_7); break;
+		case '8': doType(VK_8); break;
+		case '9': doType(VK_9); break;
+		case '-': doType(VK_MINUS); break;
+		case '=': doType(VK_EQUALS); break;
+		case '~': doType(VK_BACK_QUOTE); break;
+		case '!': doType(VK_SHIFT, VK_EXCLAMATION_MARK); break;
+		case '@': doType(VK_SHIFT, VK_AT); break;
+		case '#': doType(VK_SHIFT, VK_NUMBER_SIGN); break;
+		case '$': doType(VK_SHIFT, VK_DOLLAR); break;
+		case '%': doType(VK_SHIFT, VK_5); break;
+		case '^': doType(VK_SHIFT, VK_CIRCUMFLEX); break;
+		case '&': doType(VK_SHIFT, VK_AMPERSAND); break;
+		case '*': doType(VK_SHIFT, VK_ASTERISK); break;
+		case '(': doType(VK_LEFT_PARENTHESIS); break;
+		case ')': doType(VK_RIGHT_PARENTHESIS); break;
+		case '_': doType(VK_SHIFT, VK_UNDERSCORE); break;
+		case '+': doType(VK_SHIFT, VK_PLUS); break;
+		case '\t': doType(VK_TAB); break;
+		case '\n': doType(VK_ENTER); break;
+		case '[': doType(VK_OPEN_BRACKET); break;
+		case ']': doType(VK_CLOSE_BRACKET); break;
+		case '\\': doType(VK_BACK_SLASH); break;
+		case '{': doType(VK_SHIFT, VK_OPEN_BRACKET); break;
+		case '}': doType(VK_SHIFT, VK_CLOSE_BRACKET); break;
+		case '|': doType(VK_SHIFT, VK_BACK_SLASH); break;
+		case ';': doType(VK_SEMICOLON); break;
+		case ':': doType(VK_SHIFT, VK_COLON); break;
+		case '\'': doType(VK_QUOTE); break;
+		case '"': doType(VK_SHIFT, VK_QUOTEDBL); break;
+		case ',': doType(VK_COMMA); break;
+		case '<': doType(VK_SHIFT, VK_COMMA); break;
+		case '.': doType(VK_PERIOD); break;
+		case '>': doType(VK_SHIFT, VK_PERIOD); break;
+		case '/': doType(VK_SLASH); break;
+		case '?': doType(VK_SHIFT, VK_SLASH); break;
+		case ' ': doType(VK_SPACE); break;
+		case '\b': doType(VK_BACK_SPACE); break;
+		default:
+		    //throw new IllegalArgumentException("Cannot type character " + character);
 
         }
     }
