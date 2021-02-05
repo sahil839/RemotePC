@@ -49,6 +49,9 @@ class receiveEvents extends Thread{
 						int scrollAmt = Integer.parseInt((String)ip_stream.readObject());
                         mouseControl.mouseWheel(scrollAmt);
                         break;
+					case "KEY_PRESS":
+						
+                        break;
 				}
 			}
 		} catch (Exception e) {
