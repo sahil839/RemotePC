@@ -50,7 +50,9 @@ class receiveEvents extends Thread{
                         mouseControl.mouseWheel(scrollAmt);
                         break;
 					case "KEY_PRESS":
-						
+						String key = (String) ip_stream.readObject();
+						mouseControl.typeCharacter(key.charAt(0));
+						break;
                         break;
 				}
 			}
