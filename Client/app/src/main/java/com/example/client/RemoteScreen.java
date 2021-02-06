@@ -2,6 +2,7 @@ package com.example.client;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -137,5 +138,20 @@ public class RemoteScreen extends AppCompatActivity {
 
         }
         return(super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        // ascii code of 'a' is 97 and KeyEvent.KEYCODE_A is 29.
+        if (keyCode >= 29 && keyCode <=54) {
+            sendToServer.message_queue.add("KEY_PRESS");
+            int ascii_of_keyCode = keyCode + 68;
+            if (event.isShiftPressed()) {
+                ascii_of_keyCode = ascii_of_keyCode - 32;
+            }
+            char keycode_char = (char) ascii_of_keyCode;
+            sendToServer.message_queue.add(String.valueOf(keycode_char));
+        }
+        return true;
     }
 }
