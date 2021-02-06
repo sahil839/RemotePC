@@ -53,7 +53,6 @@ class receiveEvents extends Thread{
 						String key = (String) ip_stream.readObject();
 						mouseControl.typeCharacter(key.charAt(0));
 						break;
-                        break;
 				}
 			}
 		} catch (Exception e) {
