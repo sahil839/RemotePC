@@ -152,6 +152,11 @@ public class RemoteScreen extends AppCompatActivity {
             char keycode_char = (char) ascii_of_keyCode;
             sendToServer.message_queue.add(String.valueOf(keycode_char));
         }
+        // KeyEvent.KEYCODE_0 is 7.
+        else if (keyCode >=7 && keyCode<=16) {
+            sendToServer.message_queue.add("KEY_PRESS");
+            sendToServer.message_queue.add(String.valueOf(keyCode - 7));
+        }
         return true;
     }
 }
