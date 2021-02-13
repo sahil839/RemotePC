@@ -23,6 +23,7 @@ public class RemoteScreen extends AppCompatActivity {
     boolean mouseMoved = false, multiTouch = false;
     long currentPressTime, lastPressTime;
     Float finalXCord, finalYCord;
+    Util util = new Util();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,6 @@ public class RemoteScreen extends AppCompatActivity {
         screenView = (ImageView) findViewById(R.id.screenImageView);
         new UpdateScreen(RemoteScreen.this);
         sendToServer = new SendToServer();
-
         ViewTreeObserver vto = screenView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -135,7 +135,6 @@ public class RemoteScreen extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 return(true);
-
         }
         return(super.onOptionsItemSelected(item));
     }
@@ -156,6 +155,12 @@ public class RemoteScreen extends AppCompatActivity {
         else if (keyCode >=7 && keyCode<=16) {
             sendToServer.message_queue.add("KEY_PRESS");
             sendToServer.message_queue.add(String.valueOf(keyCode - 7));
+        }
+        // Keycode of space is 62, enter is 66 and backspace is 67.
+        else if (util.check_key_implemented(keyCode)){
+            sendToServer.message_queue.add("KEY_PRESS");
+            String keyboard_str = util.get_string_for_keycode(keyCode);
+            sendToServer.message_queue.add(keyboard_str);
         }
         return true;
     }
