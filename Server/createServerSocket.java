@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class createServerSocket implements Runnable{
-	ServerSocket socket = null, screen_socket = null;
+	ServerSocket socket = null, screen_socket = null, file_socket = null;
 	DataInputStream socket_input;
 	DataOutputStream socket_output;
 	String server_password;
-	int port = 8000, screen_port = 8001;
+	int port = 8000, screen_port = 8001, file_port = 8002;
 	JFrame waiting_frame;
 	JFrame connected_frame;
 	private volatile Boolean wait_for_client;
@@ -22,6 +22,7 @@ public class createServerSocket implements Runnable{
 		try {
 			socket = new ServerSocket(port);
 			screen_socket = new ServerSocket(screen_port);
+			file_socket = new ServerSocket(file_port);
 		} catch (Exception e) {
 			wait_for_client = false;
 			e.printStackTrace();
@@ -30,6 +31,7 @@ public class createServerSocket implements Runnable{
 			try {
 				Socket sc = socket.accept();
 				Socket screen_sc = screen_socket.accept();
+				Socket file_sc = file_socket.accept();
 
 				socket_output = new DataOutputStream(sc.getOutputStream());
 				socket_input = new DataInputStream(sc.getInputStream());
