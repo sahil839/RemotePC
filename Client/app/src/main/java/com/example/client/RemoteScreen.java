@@ -22,7 +22,7 @@ public class RemoteScreen extends AppCompatActivity {
     private int screenViewX, screenViewY;
     private int xCord, yCord, initX, initY, distY;
     boolean mouseMoved = false, multiTouch = false;
-    long currentPressTime, lastPressTime;
+    long currentPressTime, lastPressTime, pressTime, releaseTime;
     Float finalXCord, finalYCord;
     Util util = new Util();
     @Override
@@ -47,6 +47,7 @@ public class RemoteScreen extends AppCompatActivity {
             if (MakeConnection.client_socket != null) {
                 switch(event.getAction() & MotionEvent.ACTION_MASK){
                     case MotionEvent.ACTION_DOWN:
+                        pressTime = event.getDownTime();
                         xCord = screenViewX - (int) event.getY();
                         yCord = (int) event.getX();
                         initX = xCord;
@@ -83,13 +84,21 @@ public class RemoteScreen extends AppCompatActivity {
                         }
                         break;
                     case MotionEvent.ACTION_UP:
-                        // Currently supports only single click.
                         currentPressTime = System.currentTimeMillis();
-                        long interval = currentPressTime - lastPressTime;
-                        if (interval >= 500 && !mouseMoved) {
-                            sendToServer.message_queue.add("LEFT_CLICK");
+                        releaseTime = event.getEventTime();
+                        long interval = releaseTime - pressTime;
+                        if (!mouseMoved) {
+                            if (interval > 750) {
+                                sendToServer.message_queue.add("RIGHT_CLICK");
+                            } else {
+                                if (currentPressTime - lastPressTime < 500) {
+                                    sendToServer.message_queue.add("DOUBLE_LEFT_CLICK");
+                                } else {
+                                    sendToServer.message_queue.add("LEFT_CLICK");
+                                    lastPressTime = currentPressTime;
+                                }
+                            }
                         }
-                        lastPressTime = currentPressTime;
                         break;
                     case MotionEvent.ACTION_POINTER_DOWN:
                         initY = (int) event.getY();
