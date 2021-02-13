@@ -13,11 +13,11 @@ import java.net.Socket;
 public class MakeConnection implements Runnable{
     String ipAddress;
     String password;
-    InetSocketAddress client_socket_addr, screen_socket_addr;
-    public static Socket client_socket, screen_socket;
+    InetSocketAddress client_socket_addr, screen_socket_addr, file_socket_addr;
+    public static Socket client_socket, screen_socket, file_socket;
     DataInputStream passwordVerification;
     DataOutputStream sendPassword;
-    public static ObjectOutputStream objectOutputStream, screenOutputStream;
+    public static ObjectOutputStream objectOutputStream, screenOutputStream, fileOutputStream;
     public static ObjectInputStream screenInputStream;
     Context connectContext;
     MakeConnection( String ip, String pass, Context context) {
@@ -26,7 +26,7 @@ public class MakeConnection implements Runnable{
         connectContext = context;
     }
     public void run() {
-        int port = 8000, screen_port = 8001;
+        int port = 8000, screen_port = 8001, file_port = 8002;
         try {
             client_socket_addr = new InetSocketAddress(ipAddress, port);
             client_socket = new Socket();
@@ -35,6 +35,10 @@ public class MakeConnection implements Runnable{
             screen_socket_addr = new InetSocketAddress(ipAddress, screen_port);
             screen_socket = new Socket();
             screen_socket.connect(screen_socket_addr, 3000);
+
+            file_socket_addr = new InetSocketAddress(ipAddress, file_port);
+            file_socket = new Socket();
+            file_socket.connect(file_socket_addr, 3000);
 
             sendPassword = new DataOutputStream(client_socket.getOutputStream());
             passwordVerification = new DataInputStream(client_socket.getInputStream());
@@ -45,6 +49,8 @@ public class MakeConnection implements Runnable{
                 MakeConnection.screenInputStream = new ObjectInputStream(MakeConnection.screen_socket.getInputStream());
 
                 MakeConnection.objectOutputStream = new ObjectOutputStream(MakeConnection.client_socket.getOutputStream());
+
+                MakeConnection.fileOutputStream = new ObjectOutputStream(MakeConnection.file_socket.getOutputStream());
 
                 Intent intent = new Intent(connectContext, RemoteScreen.class);
                 connectContext.startActivity(intent);
