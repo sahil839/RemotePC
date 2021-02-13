@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_baseline_file_copy_24"
         android:title="Transfer File"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/controls"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_settings_applications_24"
+        android:title="Controls"
+        app:showAsAction="always" />
 </menu>
