@@ -1,6 +1,7 @@
 package com.example.client;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -135,6 +136,10 @@ public class RemoteScreen extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 return(true);
+            case R.id.transfer_file:
+                Intent intent = new Intent(this, FileTransfer.class);
+                this.startActivity(intent);
+                return (true);
         }
         return(super.onOptionsItemSelected(item));
     }

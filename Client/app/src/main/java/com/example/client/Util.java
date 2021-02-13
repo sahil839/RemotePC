@@ -1,6 +1,8 @@
 package com.example.client;
 
 import android.view.KeyEvent;
+import android.database.Cursor;
+import android.provider.OpenableColumns;
 
 import java.util.HashMap;
 
@@ -35,4 +37,17 @@ public class Util {
     public boolean check_key_implemented(int keycode) {
         return keyboard_hash.containsKey(keycode);
     }
+    public static String get_file_name_from_uri(Cursor fileCursor) {
+        int nameIndex = fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        fileCursor.moveToFirst();
+        String fileName = fileCursor.getString(nameIndex);
+        return fileName;
+    }
+    public static Long get_file_size_from_uri(Cursor fileCursor) {
+        int sizeIndex = fileCursor.getColumnIndex(OpenableColumns.SIZE);
+        fileCursor.moveToFirst();
+        Long fileSize = fileCursor.getLong(sizeIndex);
+        return fileSize;
+    }
+
 }
