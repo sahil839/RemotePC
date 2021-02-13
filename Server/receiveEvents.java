@@ -2,6 +2,8 @@ import java.net.Socket;
 import java.io.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 // General Events like left click, right click, cursor movement, mouse scroll, double left click, right click, close connection happen here.
 class receiveEvents extends Thread{
@@ -62,6 +64,15 @@ class receiveEvents extends Thread{
                     case "DOUBLE_LEFT_CLICK":
                     	mouseControl.doubleLeftClick();
                     	break;
+                    case "SHUTDOWN_PC":
+						String password = (String) ip_stream.readObject();
+						mouseControl.openTerminal();
+
+						mouseControl.typeString("sudo shutdown -P now");
+						mouseControl.typeCharacter('\n');
+						mouseControl.typeString(password);
+						mouseControl.typeCharacter('\n');
+						break;
 				}
 			}
 		} catch (Exception e) {

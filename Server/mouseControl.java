@@ -45,6 +45,7 @@ public class mouseControl {
         for(int i = length - 1; i >= 0; i--) {
             robot.keyRelease(keyCodes[i]);
         }
+        robot.delay(10);
     }
     public static void typeCharacter(char character){
         switch (character) {
@@ -151,4 +152,13 @@ public class mouseControl {
 
         }
     }
+	public static void typeString(String s) {
+		for (int i=0;i<s.length();i++){
+			typeCharacter(s.charAt(i));
+		}
+	}
+	public static  void openTerminal(){
+		mouseControl.doType(VK_CONTROL, VK_ALT, VK_T);
+		robot.delay(200);
+	}
 }
