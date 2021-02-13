@@ -53,6 +53,12 @@ class receiveEvents extends Thread{
 						String key = (String) ip_stream.readObject();
 						mouseControl.typeCharacter(key.charAt(0));
 						break;
+					case "RIGHT_CLICK":
+                    	mouseControl.rightClick();
+                    	break;
+                    case "DOUBLE_LEFT_CLICK":
+                    	mouseControl.doubleLeftClick();
+                    	break;
 				}
 			}
 		} catch (Exception e) {
