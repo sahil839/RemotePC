@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_baseline_keyboard_24"
         android:title="Keyboard"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/transfer_file"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_file_copy_24"
+        android:title="Transfer File"
+        app:showAsAction="always" />
 </menu>
