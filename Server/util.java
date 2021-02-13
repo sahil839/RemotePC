@@ -13,4 +13,8 @@ public class util {
         }
         return ipAddress;
 	}
+    public static String getHomeDirectoryPath() {
+        String path = System.getProperty("user.home");
+        return path;
+    }
 }
