@@ -18,7 +18,7 @@ import java.util.Timer;
 public class RemoteScreen extends AppCompatActivity {
     public static ImageView screenView;
     public static Timer updateScreenTimer;
-    SendToServer sendToServer;
+    public static SendToServer sendToServer;
     private int screenViewX, screenViewY;
     private int xCord, yCord, initX, initY, distY;
     boolean mouseMoved = false, multiTouch = false;
@@ -147,6 +147,10 @@ public class RemoteScreen extends AppCompatActivity {
                 return(true);
             case R.id.transfer_file:
                 Intent intent = new Intent(this, FileTransfer.class);
+                this.startActivity(intent);
+                return (true);
+            case R.id.controls:
+                intent = new Intent(this, Controls.class);
                 this.startActivity(intent);
                 return (true);
         }
