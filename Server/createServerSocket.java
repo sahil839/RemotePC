@@ -45,6 +45,7 @@ public class createServerSocket implements Runnable{
 					waiting_frame.dispose();
 					new receiveScreenEvent(screen_sc);
 					new receiveEvents(sc, screen_sc);
+					new receiveFileEvent(file_sc);
 				} else {
 					socket_output.writeUTF("Invalid password.");
 					sc.close();
