@@ -10,10 +10,8 @@ public class receiveScreenEvent extends Thread{
 	ObjectInputStream ip_stream;
 	String event_key;
 	private volatile Boolean receive_events = true;
-	connectedWithClient c_frame;
-	receiveScreenEvent (Socket sc, connectedWithClient cframe) {
+	receiveScreenEvent (Socket sc) {
 		screen_socket = sc;
-		c_frame = cframe;
 		try {
 			op_stream = new ObjectOutputStream(sc.getOutputStream());
 			ip_stream = new ObjectInputStream(sc.getInputStream());
@@ -30,7 +28,6 @@ public class receiveScreenEvent extends Thread{
 				switch (event_key) {
 					case "SEND_SCREEN":
 					{
-						c_frame.info("Sending screen");
 						new sendCurrentScreen(screen_socket);
 
 					}
