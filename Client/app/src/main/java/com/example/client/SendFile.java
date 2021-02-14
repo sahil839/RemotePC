@@ -49,8 +49,8 @@ public class SendFile extends Thread{
                 opStream.flush();
             }
             opStream.flush();
-            selectFile.postDelayed(()-> selectFile.setEnabled(true), 500);
-            sendFile.postDelayed(() -> sendFile.setEnabled(true), 500);
+            selectFile.postDelayed(()-> selectFile.setEnabled(true), 1000);
+            sendFile.postDelayed(() -> sendFile.setEnabled(true), 1000);
             filePathTxt.setText("");
         } catch (Exception e){
             e.printStackTrace();
