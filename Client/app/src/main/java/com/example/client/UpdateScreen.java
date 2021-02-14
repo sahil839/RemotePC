@@ -15,7 +15,7 @@ import java.util.Timer;
 public class UpdateScreen {
     Activity screen_activity;
     long delay = 0;
-    long period = 650;
+    long period = 1000;
     UpdateScreen(Activity activity) {
         screen_activity = activity;
         RemoteScreen.updateScreenTimer = new Timer();
