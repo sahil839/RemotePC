@@ -13,6 +13,10 @@ import java.io.ObjectOutputStream;
 import java.io.File;
 import java.awt.MouseInfo;
 import java.awt.Graphics2D;
+import java.util.Iterator;
+import javax.imageio.*;
+import javax.imageio.stream.*;
+
 
 public class sendCurrentScreen {
 	Socket connected_socket;
@@ -35,7 +39,15 @@ public class sendCurrentScreen {
 			int y = MouseInfo.getPointerInfo().getLocation().y;
 			Graphics2D graphics2D = screenImage.createGraphics();
 			graphics2D.drawImage(cursor, x, y, 16, 16, null);
-            ImageIO.write(screenImage, "jpeg", byte_array_op_stream);
+			Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+    		ImageWriter writer = (ImageWriter) writers.next();
+			ImageOutputStream ios = ImageIO.createImageOutputStream(byte_array_op_stream);
+    		writer.setOutput(ios);
+			ImageWriteParam param = writer.getDefaultWriteParam();
+    		param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+    		param.setCompressionQuality(0.2f);  // Change the quality value you prefer
+    		writer.write(null, new IIOImage(screenImage, null, null), param);
+
             byte_array_ip_stream = new ByteArrayInputStream(byte_array_op_stream.toByteArray());
             int fileSize = byte_array_op_stream.size();
             receiveScreenEvent.op_stream.writeObject(fileSize);
