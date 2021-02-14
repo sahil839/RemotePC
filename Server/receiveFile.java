@@ -7,9 +7,11 @@ class receiveFile {
 	Socket file_sc;
 	ObjectInputStream ip_stream;
 	String path;
-	receiveFile(Socket sc, String file_name, Long file_size) {
+	connectedWithClient c_frame;
+	receiveFile(Socket sc, String file_name, Long file_size, connectedWithClient cframe) {
 		file_sc = sc;
 		int bytesRead;
+		c_frame = cframe;
     	int current = 0;
     	ip_stream = receiveFileEvent.ip_stream;
     	FileOutputStream fos = null;
@@ -29,8 +31,10 @@ class receiveFile {
             while (totalRead < file_size && (read = ip_stream.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
                 totalRead += read;
                 remaining -= read;
+                c_frame.file_info("Exchanging " + file_name + "| Remaining: " + remaining);
                 fos.write(buffer, 0, read);
             }
+            c_frame.file_info("Exchanging " + file_name + "| Recieved");
         } catch (Exception e) {
             e.printStackTrace();
         }

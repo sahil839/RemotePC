@@ -13,10 +13,12 @@ class receiveEvents extends Thread{
 	ObjectInputStream ip_stream;
 	int screenWidth, screenHeight;
 	mouseControl mouse_control;
+	connectedWithClient c_frame;
 	// Constructor
-	receiveEvents(Socket sc, Socket screen_sc) {
+	receiveEvents(Socket sc, Socket screen_sc, connectedWithClient cframe) {
 		connected_socket = sc; 
 		screen_socket = screen_sc;
+		c_frame = cframe;
 		receive_events = true;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.getWidth();
@@ -36,6 +38,7 @@ class receiveEvents extends Thread{
 				event_key = (String)ip_stream.readObject();
 				switch (event_key) {
 					case "CLOSE_CONNECTION":
+						c_frame.events_info("Closing connection");
 						receive_events = false;
 						break;
 					case "MOUSE_MOVE_LIVE":
@@ -46,9 +49,11 @@ class receiveEvents extends Thread{
                         finalXCord = finalXCord * screenWidth;
                         finalYCord = finalYCord * screenHeight;
                         mouseControl.mouseMove((int) finalXCord, (int) finalYCord);
+                        c_frame.events_info("Live remote mouse");
                         break;
                     case "LEFT_CLICK":
                         mouseControl.leftClick();
+                        c_frame.events_info("Mouse left click");
                         break;
                     case "MOUSE_WHEEL":
 						int scrollAmt = Integer.parseInt((String)ip_stream.readObject());
@@ -69,12 +74,16 @@ class receiveEvents extends Thread{
 						}  else {
 							mouseControl.typeCharacter(key.charAt(0));
 						}
+						mouseControl.typeCharacter(key.charAt(0));
+						c_frame.events_info("Key pressed");
 						break;
 					case "RIGHT_CLICK":
                     	mouseControl.rightClick();
+                    	c_frame.events_info("Mouse right click");
                     	break;
                     case "DOUBLE_LEFT_CLICK":
                     	mouseControl.doubleLeftClick();
+                    	c_frame.events_info("Mouse double left click");
                     	break;
                     case "SHUTDOWN_PC":
 						String password = (String) ip_stream.readObject();
