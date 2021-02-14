@@ -3,6 +3,7 @@ import java.io.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+// General Events like left click, right click, cursor movement, mouse scroll, double left click, right click, close connection happen here.
 class receiveEvents extends Thread{
 	String event_key;
 	Socket connected_socket, screen_socket;
@@ -10,13 +11,15 @@ class receiveEvents extends Thread{
 	ObjectInputStream ip_stream;
 	int screenWidth, screenHeight;
 	mouseControl mouse_control;
+	// Constructor
 	receiveEvents(Socket sc, Socket screen_sc) {
-		connected_socket = sc;
+		connected_socket = sc; 
 		screen_socket = screen_sc;
 		receive_events = true;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = (int) screenSize.getWidth();
         screenHeight = (int) screenSize.getHeight();
+        // Create mouse control object ( see mouseControl.java )
         mouse_control = new mouseControl();
 		try {
 			ip_stream = new ObjectInputStream(connected_socket.getInputStream());

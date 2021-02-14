@@ -3,6 +3,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
+// A Generalised mouse control. Provides access point for mouse and keys in the recieveEvents.java
 public class mouseControl {
 	static Robot robot;
     public mouseControl() {

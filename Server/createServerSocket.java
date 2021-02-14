@@ -4,11 +4,13 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 
+// Creating server for listening
 public class createServerSocket implements Runnable{
 	ServerSocket socket = null, screen_socket = null, file_socket = null;
 	DataInputStream socket_input;
 	DataOutputStream socket_output;
 	String server_password;
+	// 3 Ports one for screen sharing, one for file sharing and other is for listening.
 	int port = 8000, screen_port = 8001, file_port = 8002;
 	JFrame waiting_frame;
 	JFrame connected_frame;
@@ -29,6 +31,7 @@ public class createServerSocket implements Runnable{
 		}
 		while(wait_for_client) {
 			try {
+				// Socket after accepting a connection.
 				Socket sc = socket.accept();
 				Socket screen_sc = screen_socket.accept();
 				Socket file_sc = file_socket.accept();
