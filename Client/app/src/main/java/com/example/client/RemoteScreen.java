@@ -132,6 +132,7 @@ public class RemoteScreen extends AppCompatActivity {
             sendToServer.message_queue.add("CLOSE_CONNECTION");
             MakeConnection.client_socket.close();
             MakeConnection.screen_socket.close();
+            MakeConnection.file_socket.close();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
