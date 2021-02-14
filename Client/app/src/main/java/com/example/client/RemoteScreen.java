@@ -157,6 +157,11 @@ public class RemoteScreen extends AppCompatActivity {
                 intent = new Intent(this, SpecialKeyboard.class);
                 this.startActivity(intent);
                 return (true);
+            case R.id.about:
+                intent = new Intent(this, About.class);
+                this.startActivity(intent);
+                return (true);
+
         }
         return(super.onOptionsItemSelected(item));
     }
