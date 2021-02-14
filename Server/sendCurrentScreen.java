@@ -35,7 +35,7 @@ public class sendCurrentScreen {
 			int y = MouseInfo.getPointerInfo().getLocation().y;
 			Graphics2D graphics2D = screenImage.createGraphics();
 			graphics2D.drawImage(cursor, x, y, 16, 16, null);
-            ImageIO.write(screenImage, "png", byte_array_op_stream);
+            ImageIO.write(screenImage, "jpeg", byte_array_op_stream);
             byte_array_ip_stream = new ByteArrayInputStream(byte_array_op_stream.toByteArray());
             int fileSize = byte_array_op_stream.size();
             receiveScreenEvent.op_stream.writeObject(fileSize);
