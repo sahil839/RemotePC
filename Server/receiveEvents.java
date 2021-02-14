@@ -2,6 +2,8 @@ import java.net.Socket;
 import java.io.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 // General Events like left click, right click, cursor movement, mouse scroll, double left click, right click, close connection happen here.
 class receiveEvents extends Thread{
@@ -59,8 +61,24 @@ class receiveEvents extends Thread{
                         break;
 					case "KEY_PRESS":
 						String key = (String) ip_stream.readObject();
+<<<<<<< HEAD
 						mouseControl.typeCharacter(key.charAt(0));
 						c_frame.events_info("Key pressed");
+=======
+						if (key.equals("LEFT")) {
+							mouseControl.doType(VK_LEFT);
+						} else if (key.equals("RIGHT")) {
+							mouseControl.doType(VK_RIGHT);
+						} else if (key.equals("UP")) {
+							mouseControl.doType(VK_UP);
+						}  else if (key.equals("DOWN")) {
+							mouseControl.doType(VK_DOWN);
+						} else if (key.equals("F5")) {
+							mouseControl.doType(VK_CONTROL, VK_F5);
+						}  else {
+							mouseControl.typeCharacter(key.charAt(0));
+						}
+>>>>>>> bf420a2328a563d3f326053cf0df2b86971731df
 						break;
 					case "RIGHT_CLICK":
                     	mouseControl.rightClick();
@@ -70,6 +88,15 @@ class receiveEvents extends Thread{
                     	mouseControl.doubleLeftClick();
                     	c_frame.events_info("Mouse double left click");
                     	break;
+                    case "SHUTDOWN_PC":
+						String password = (String) ip_stream.readObject();
+						mouseControl.openTerminal();
+
+						mouseControl.typeString("sudo shutdown -P now");
+						mouseControl.typeCharacter('\n');
+						mouseControl.typeString(password);
+						mouseControl.typeCharacter('\n');
+						break;
 				}
 			}
 		} catch (Exception e) {
