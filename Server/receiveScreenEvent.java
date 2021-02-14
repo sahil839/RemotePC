@@ -25,6 +25,7 @@ public class receiveScreenEvent extends Thread{
 				switch (event_key) {
 					case "SEND_SCREEN":
 						new sendCurrentScreen(screen_socket);
+						break;
 				}
 
 			}
