@@ -27,10 +27,9 @@ public class receiveScreenEvent extends Thread{
 				event_key = (String)ip_stream.readObject();
 				switch (event_key) {
 					case "SEND_SCREEN":
-					{
 						new sendCurrentScreen(screen_socket);
+						break;
 
-					}
 				}
 
 			}
