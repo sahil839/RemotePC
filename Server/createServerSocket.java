@@ -13,7 +13,7 @@ public class createServerSocket implements Runnable{
 	// 3 Ports one for screen sharing, one for file sharing and other is for listening.
 	int port = 8000, screen_port = 8001, file_port = 8002;
 	JFrame waiting_frame;
-	JFrame connected_frame;
+	connectedWithClient connected_frame;
 	private volatile Boolean wait_for_client;
 	createServerSocket(JFrame frame, String password) {
 		waiting_frame = frame;
@@ -46,9 +46,9 @@ public class createServerSocket implements Runnable{
 					connected_frame.setSize(600, 100);
 					connected_frame.setVisible(true);
 					waiting_frame.dispose();
-					new receiveScreenEvent(screen_sc);
-					new receiveEvents(sc, screen_sc);
-					new receiveFileEvent(file_sc);
+					new receiveScreenEvent(screen_sc, connected_frame);
+					new receiveEvents(sc, screen_sc, connected_frame);
+					new receiveFileEvent(file_sc, connected_frame);
 				} else {
 					socket_output.writeUTF("Invalid password.");
 					sc.close();
