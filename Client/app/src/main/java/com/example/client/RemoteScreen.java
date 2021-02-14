@@ -189,6 +189,6 @@ public class RemoteScreen extends AppCompatActivity {
             String keyboard_str = util.get_string_for_keycode(keyCode);
             sendToServer.message_queue.add(keyboard_str);
         }
-        return true;
+        return super.onKeyUp(keyCode, event);
     }
 }
