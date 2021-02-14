@@ -1,6 +1,5 @@
 package com.example.client;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
