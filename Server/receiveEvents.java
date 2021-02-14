@@ -56,7 +56,19 @@ class receiveEvents extends Thread{
                         break;
 					case "KEY_PRESS":
 						String key = (String) ip_stream.readObject();
-						mouseControl.typeCharacter(key.charAt(0));
+						if (key.equals("LEFT")) {
+							mouseControl.doType(VK_LEFT);
+						} else if (key.equals("RIGHT")) {
+							mouseControl.doType(VK_RIGHT);
+						} else if (key.equals("UP")) {
+							mouseControl.doType(VK_UP);
+						}  else if (key.equals("DOWN")) {
+							mouseControl.doType(VK_DOWN);
+						} else if (key.equals("F5")) {
+							mouseControl.doType(VK_CONTROL, VK_F5);
+						}  else {
+							mouseControl.typeCharacter(key.charAt(0));
+						}
 						break;
 					case "RIGHT_CLICK":
                     	mouseControl.rightClick();
