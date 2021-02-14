@@ -35,7 +35,10 @@ public class FileTransfer extends AppCompatActivity {
             startActivityForResult(intent, 2);
         });
         sendFile.setOnClickListener(v -> {
-            new SendFile(uri, getApplicationContext(), fileName, fileSize);
+            new SendFile(uri, getApplicationContext(), fileName, fileSize, FileTransfer.this, selectFile, sendFile, filePathText);
+            sendFile.setEnabled(false);
+            selectFile.setEnabled(false);
+            filePathText.setText("Sending " + fileName + ".......");
         });
     }
     @Override
