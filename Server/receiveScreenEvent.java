@@ -30,7 +30,6 @@ public class receiveScreenEvent extends Thread{
 				switch (event_key) {
 					case "SEND_SCREEN":
 					{
-						System.out.print("Screen sending");
 						c_frame.info("Sending screen");
 						new sendCurrentScreen(screen_socket);
 
