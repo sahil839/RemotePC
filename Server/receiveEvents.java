@@ -61,10 +61,8 @@ class receiveEvents extends Thread{
                         break;
 					case "KEY_PRESS":
 						String key = (String) ip_stream.readObject();
-<<<<<<< HEAD
 						mouseControl.typeCharacter(key.charAt(0));
 						c_frame.events_info("Key pressed");
-=======
 						if (key.equals("LEFT")) {
 							mouseControl.doType(VK_LEFT);
 						} else if (key.equals("RIGHT")) {
@@ -78,7 +76,6 @@ class receiveEvents extends Thread{
 						}  else {
 							mouseControl.typeCharacter(key.charAt(0));
 						}
->>>>>>> bf420a2328a563d3f326053cf0df2b86971731df
 						break;
 					case "RIGHT_CLICK":
                     	mouseControl.rightClick();
