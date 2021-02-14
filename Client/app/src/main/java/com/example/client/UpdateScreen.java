@@ -15,7 +15,7 @@ import java.util.Timer;
 public class UpdateScreen {
     Activity screen_activity;
     long delay = 0;
-    long period = 1000;
+    long period = 500;
     UpdateScreen(Activity activity) {
         screen_activity = activity;
         RemoteScreen.updateScreenTimer = new Timer();
@@ -23,7 +23,7 @@ public class UpdateScreen {
             @Override
             public void run() {
                 FileOutputStream fos = null;
-                String filename = "screen.png";
+                String filename = "screen.jpeg";
                 try {
                     MakeConnection.screenOutputStream.writeObject("SEND_SCREEN");
                     fos = screen_activity.openFileOutput(filename, Context.MODE_PRIVATE);
@@ -44,15 +44,16 @@ public class UpdateScreen {
                     File imageFile = new File(screen_activity.getFilesDir(), filename);
                     String path = imageFile.getAbsolutePath();
                     bitmap = BitmapFactory.decodeFile(path);
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(-90);
-                    try {
-                        Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                        RemoteScreen.screenView.setImageBitmap(rotated);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (bitmap != null) {
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(-90);
+                        try {
+                            Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                            RemoteScreen.screenView.setImageBitmap(rotated);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                    imageFile.delete();
                 });
             }
         };
