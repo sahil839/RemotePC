@@ -79,12 +79,19 @@ class receiveEvents extends Thread{
                     	break;
                     case "SHUTDOWN_PC":
 						String password = (String) ip_stream.readObject();
-						mouseControl.openTerminal();
+						String os = System.getProperty("os.name");
+						if (os.equals("Windows 10") || os.equals("Windows 8.0") || os.equals("Windows 8.1")) {
+							Runtime runtime = Runtime.getRuntime();
+							runtime.exec("shutdown -s");
+						} else {
+							// considering only linux distributions if not ubuntu.
+							mouseControl.openTerminal();
 
-						mouseControl.typeString("sudo shutdown -P now");
-						mouseControl.typeCharacter('\n');
-						mouseControl.typeString(password);
-						mouseControl.typeCharacter('\n');
+							mouseControl.typeString("sudo shutdown -P now");
+							mouseControl.typeCharacter('\n');
+							mouseControl.typeString(password);
+							mouseControl.typeCharacter('\n');
+						}
 						break;
 				}
 			}
