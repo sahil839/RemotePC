@@ -84,7 +84,7 @@ class receiveEvents extends Thread{
 							Runtime runtime = Runtime.getRuntime();
 							runtime.exec("shutdown -s");
 						} else {
-							// considering only linux distributions if not ubuntu.
+							// considering only linux distributions if not windows.
 							mouseControl.openTerminal();
 
 							mouseControl.typeString("sudo shutdown -P now");
