@@ -11,7 +11,7 @@ public class createServerSocket implements Runnable{
 	DataOutputStream socket_output;
 	String server_password;
 	// 3 Ports one for screen sharing, one for file sharing and other is for listening.
-	int port = 8000, screen_port = 8001, file_port = 8002;
+	int port = 8001, screen_port = 8000, file_port = 8002;
 	JFrame waiting_frame;
 	connectedWithClient connected_frame;
 	private volatile Boolean wait_for_client;

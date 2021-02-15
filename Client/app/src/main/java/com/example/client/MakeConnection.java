@@ -26,7 +26,7 @@ public class MakeConnection implements Runnable{
         connectContext = context;
     }
     public void run() {
-        int port = 8000, screen_port = 8001, file_port = 8002;
+        int port = 8001, screen_port = 8000, file_port = 8002;
         try {
             client_socket_addr = new InetSocketAddress(ipAddress, port);
             client_socket = new Socket();
